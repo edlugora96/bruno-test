@@ -27,7 +27,7 @@ export const HomeView = props => {
         <h3>Create list</h3>
         <p>Name: If you see it Delete it</p>
         <p>Tag: Delete me pls</p>
-        <p>channels: Amplified (id)</p>
+        <p>channels: [channel:"Amplified (id)"]</p>
         <br />
         <button onClick={props.createListMainBtn}>Create List</button>
       </section>
