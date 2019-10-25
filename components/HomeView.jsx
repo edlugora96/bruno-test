@@ -22,6 +22,14 @@ export const HomeView = props => {
         <br />
         <br />
         <button onClick={props.listUserBtn}>List User</button>
+        <br />
+        <br />
+        <h3>Create list</h3>
+        <p>Name: If you see it Delete it</p>
+        <p>Tag: Delete me pls</p>
+        <p>channels: Amplified (id)</p>
+        <br />
+        <button onClick={props.createListMainBtn}>Create List</button>
       </section>
       <section>
         {props.loading ? (
@@ -33,6 +41,7 @@ export const HomeView = props => {
             <p>Token: {props.token || "false"}</p>
             <p>ListMain Response: {props.listMain || "false"}</p>
             <p>ListUser Response: {props.listUser || "false"}</p>
+            <p>CreateList Response: {props.createList || "false"}</p>
           </div>
         )}
       </section>

@@ -10,6 +10,7 @@ const Home = () => {
     token: null,
     loading: false,
     listMain: null,
+    createList: null,
     listUser: null
   });
 
@@ -47,6 +48,42 @@ const Home = () => {
       console.error(err);
     }
   };
+  const createListMainBtn = async e => {
+    setState({
+      ...state,
+      createList: null,
+      loading: true
+    });
+    e.preventDefault();
+    try {
+      const res = await fetch("https://jifcast.org/api/v1/list", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.token}`
+        },
+        body: JSON.stringify({
+          name: "If you see it Delete it",
+          tag: "Delete me pls",
+          channels: [{ channel: "5dac9d1cd543c27777ec7684" }]
+        })
+      });
+      const body = await res.json();
+      console.log(body);
+      setState({
+        ...state,
+        createList: JSON.stringify(body.docs) || body.message,
+        loading: false
+      });
+    } catch (err) {
+      setState({
+        ...state,
+        createList: null,
+        loading: false
+      });
+      console.error(err);
+    }
+  };
 
   const listMainBtn = async () => {
     setState({
@@ -66,7 +103,7 @@ const Home = () => {
       console.log(body);
       setState({
         ...state,
-        listMain: body.message || JSON.stringify(body.data.docs),
+        listMain: JSON.stringify(body.docs) || body.message,
         loading: false
       });
     } catch (err) {
@@ -95,7 +132,7 @@ const Home = () => {
       const body = await res.json();
       setState({
         ...state,
-        listUser: body.message || JSON.stringify(body.data.docs),
+        listUser: JSON.stringify(body.docs) || body.message,
         loading: false
       });
     } catch (err) {
@@ -114,6 +151,7 @@ const Home = () => {
     submit,
     listMainBtn,
     listUserBtn,
+    createListMainBtn,
     ...state
   };
   return <HomeView {...sendProps} />;
